@@ -1,0 +1,250 @@
+:root {
+  color-scheme: light;
+  --bg: linear-gradient(135deg, #0f172a 0%, #1e3a8a 40%, #0f766e 100%);
+  --card-bg: rgba(255, 255, 255, 0.16);
+  --text: #e2e8f0;
+  --muted: #cbd5e1;
+  --border: rgba(255, 255, 255, 0.25);
+  --accent: #38bdf8;
+  --accent-2: #818cf8;
+  --shadow: 0 20px 45px rgba(2, 6, 23, 0.25);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 45%, #fdf2f8 100%);
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --text: #0f172a;
+  --muted: #475569;
+  --border: rgba(15, 23, 42, 0.1);
+  --accent: #2563eb;
+  --accent-2: #7c3aed;
+  --shadow: 0 20px 45px rgba(148, 163, 184, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-shell {
+  min-height: 100vh;
+}
+
+.navbar-glass {
+  backdrop-filter: blur(18px);
+  background: rgba(15, 23, 42, 0.3);
+  border-bottom: 1px solid var(--border);
+}
+
+html[data-theme="light"] .navbar-glass {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.brand-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+}
+
+.hero-section {
+  padding-top: 120px;
+  padding-bottom: 80px;
+}
+
+.pill {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.hero-card,
+.glass-card,
+.stat-card,
+.feature-card,
+.mini-card,
+.history-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+}
+
+.hero-card {
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glow {
+  position: absolute;
+  inset: auto -20% -20% auto;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.35), transparent 70%);
+}
+
+.glass-card {
+  padding: 24px;
+}
+
+.stat-card {
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  font-size: 1.7rem;
+  margin-bottom: 6px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+}
+
+.btn-outline-light,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-danger {
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.form-control,
+.form-select {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+html[data-theme="light"] .form-control,
+html[data-theme="light"] .form-select {
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--text);
+}
+
+.form-control::placeholder {
+  color: var(--muted);
+}
+
+.helper-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.summary-box {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  line-height: 1.7;
+}
+
+.mini-card {
+  padding: 14px;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.loader {
+  text-align: center;
+}
+
+.spinner {
+  width: 42px;
+  height: 42px;
+  margin: 0 auto;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.progress {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.25s ease;
+}
+
+.history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.history-item {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.history-item .meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.feature-card {
+  padding: 22px;
+  height: 100%;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: rgba(15, 23, 42, 0.15);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 100px;
+  }
+
+  .history-item {
+    flex-direction: column;
+  }
+}

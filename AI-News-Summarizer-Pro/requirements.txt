@@ -1,0 +1,13 @@
+Flask
+transformers
+torch
+newspaper3k
+beautifulsoup4
+lxml
+requests
+PyPDF2
+python-dotenv
+nltk
+sumy
+textblob
+scikit-learn

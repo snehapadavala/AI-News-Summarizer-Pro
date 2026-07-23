@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI News Summarizer Pro</title>
+    <meta name="description" content="Summarize news articles with AI in seconds." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+            <span class="brand-icon">✦</span>
+            <span>AI News Summarizer Pro</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+              <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+              <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+              <li class="nav-item"><a class="nav-link" href="https://github.com" target="_blank">GitHub</a></li>
+            </ul>
+            <button id="themeToggle" class="btn btn-outline-light ms-3">🌙</button>
+          </div>
+        </div>
+      </nav>
+
+      <header id="home" class="hero-section">
+        <div class="container py-5">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+              <span class="pill">Artificial Intelligence • Fast • Secure</span>
+              <h1 class="display-4 fw-bold mb-3">AI News Summarizer</h1>
+              <p class="lead mb-4">Summarize long news articles in seconds with premium AI-driven extraction and insight generation.</p>
+              <div class="d-flex flex-wrap gap-3">
+                <a href="#summarizer" class="btn btn-primary btn-lg">Try Now</a>
+                <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="hero-card">
+                <div class="card-glow"></div>
+                <h4>What you can do</h4>
+                <ul class="list-unstyled mt-3">
+                  <li>• Paste a full article</li>
+                  <li>• Upload TXT or PDF files</li>
+                  <li>• Extract from a news URL</li>
+                  <li>• Download, copy, and save summaries</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="container py-5">
+        <section class="row g-4 mb-5">
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3 id="statWords">0</h3>
+              <p>Original Words</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3 id="statSummaryWords">0</h3>
+              <p>Summary Words</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3 id="statCompression">0%</h3>
+              <p>Compression</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card">
+              <h3 id="statTime">0s</h3>
+              <p>Inference Time</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="summarizer" class="row g-4">
+          <div class="col-lg-7">
+            <div class="glass-card">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                  <h2 class="h4 mb-1">Create a Summary</h2>
+                  <p class="text-muted mb-0">Choose your input source and generate an AI summary instantly.</p>
+                </div>
+                <button class="btn btn-outline-secondary" id="clearInputBtn">Clear</button>
+              </div>
+
+              <ul class="nav nav-pills mb-4" id="inputTabs">
+                <li class="nav-item"><button class="nav-link active" data-mode="paste">Paste Article</button></li>
+                <li class="nav-item"><button class="nav-link" data-mode="txt">Upload TXT</button></li>
+                <li class="nav-item"><button class="nav-link" data-mode="pdf">Upload PDF</button></li>
+                <li class="nav-item"><button class="nav-link" data-mode="url">News URL</button></li>
+              </ul>
+
+              <div id="pastePanel" class="input-panel">
+                <label class="form-label" for="articleInput">Paste the article below</label>
+                <textarea id="articleInput" class="form-control" rows="13" placeholder="Paste a long-form article and let the AI summarize it..."></textarea>
+                <div class="helper-row mt-2">
+                  <span id="charCount">0 characters</span>
+                  <span id="wordCount">0 words</span>
+                  <span id="readTime">0 min read</span>
+                </div>
+              </div>
+
+              <div id="uploadPanel" class="input-panel d-none">
+                <label class="form-label" for="fileInput">Upload a text or PDF file</label>
+                <input class="form-control" type="file" id="fileInput" accept=".txt,.pdf" />
+                <small class="text-muted">Maximum size: 10MB</small>
+              </div>
+
+              <div id="urlPanel" class="input-panel d-none">
+                <label class="form-label" for="urlInput">Enter a news URL</label>
+                <input id="urlInput" class="form-control" type="url" placeholder="https://example.com/news/article" />
+              </div>
+
+              <div class="mt-4">
+                <h5 class="mb-3">Summary mode</h5>
+                <div class="d-flex flex-wrap gap-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="summaryMode" id="modeShort" value="short" checked />
+                    <label class="form-check-label" for="modeShort">Short</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="summaryMode" id="modeMedium" value="medium" />
+                    <label class="form-check-label" for="modeMedium">Medium</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="summaryMode" id="modeDetailed" value="detailed" />
+                    <label class="form-check-label" for="modeDetailed">Detailed</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <h5 class="mb-3">Advanced options</h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label" for="maxLength">Maximum Summary Length</label>
+                    <input id="maxLength" class="form-control" type="number" value="130" min="40" max="250" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="minLength">Minimum Summary Length</label>
+                    <input id="minLength" class="form-control" type="number" value="40" min="20" max="120" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="beamSearch">Beam Search</label>
+                    <select id="beamSearch" class="form-select">
+                      <option value="false">Off</option>
+                      <option value="true">On</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="temperature">Temperature</label>
+                    <input id="temperature" class="form-control" type="number" step="0.1" value="0.7" min="0.1" max="1.5" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="topK">Top K</label>
+                    <input id="topK" class="form-control" type="number" value="50" min="10" max="100" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="topP">Top P</label>
+                    <input id="topP" class="form-control" type="number" step="0.01" value="0.95" min="0.1" max="1" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 d-flex flex-wrap gap-3">
+                <button id="generateBtn" class="btn btn-primary">Generate Summary</button>
+                <button id="saveHistoryBtn" class="btn btn-outline-primary">Save History</button>
+                <button id="clearHistoryBtn" class="btn btn-outline-danger">Delete History</button>
+              </div>
+
+              <div id="loader" class="loader d-none mt-4">
+                <div class="spinner"></div>
+                <div class="progress mt-3">
+                  <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+                </div>
+                <p id="statusText" class="mt-2 mb-0">Preparing your article...</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="glass-card">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <h2 class="h4 mb-1">Output</h2>
+                  <p class="text-muted mb-0">Your summary and insights appear here.</p>
+                </div>
+              </div>
+
+              <div id="emptyState" class="empty-state">
+                <h5>No summary yet</h5>
+                <p>Paste an article, upload a file, or enter a URL to begin.</p>
+              </div>
+
+              <div id="resultPanel" class="d-none">
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                  <button id="copySummaryBtn" class="btn btn-sm btn-outline-primary">Copy</button>
+                  <button id="downloadTxtBtn" class="btn btn-sm btn-outline-primary">Download TXT</button>
+                  <button id="downloadPdfBtn" class="btn btn-sm btn-outline-primary">Download PDF</button>
+                  <button id="printSummaryBtn" class="btn btn-sm btn-outline-secondary">Print</button>
+                  <button id="shareSummaryBtn" class="btn btn-sm btn-outline-secondary">Share</button>
+                  <button id="favoriteSummaryBtn" class="btn btn-sm btn-outline-warning">Favorite</button>
+                </div>
+                <h5 class="mb-3">Generated Summary</h5>
+                <div id="summaryOutput" class="summary-box"></div>
+
+                <div class="row g-3 mt-3">
+                  <div class="col-6">
+                    <div class="mini-card">
+                      <h6>Headline</h6>
+                      <p id="headlineOutput" class="mb-0"></p>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mini-card">
+                      <h6>Category</h6>
+                      <p id="categoryOutput" class="mb-0"></p>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mini-card">
+                      <h6>Sentiment</h6>
+                      <p id="sentimentOutput" class="mb-0"></p>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="mini-card">
+                      <h6>Language</h6>
+                      <p id="languageOutput" class="mb-0"></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4">
+                  <h6>Important points</h6>
+                  <ul id="pointsOutput" class="list-group list-group-flush"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="features" class="mt-5">
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="feature-card">
+                <h5>Smart Extraction</h5>
+                <p>Cleanly pull article content from pasted text, uploaded files, or website URLs.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="feature-card">
+                <h5>Advanced Controls</h5>
+                <p>Configure summary length, sampling temperature, beam search, and top-k settings.</p>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="feature-card">
+                <h5>Premium Experience</h5>
+                <p>Enjoy a sparkling UI, secure validation, downloadable results, and collapsible history.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" class="mt-5 glass-card">
+          <h3 class="h4 mb-4">FAQ</h3>
+          <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faqOne">What inputs are supported?</button></h2>
+              <div id="faqOne" class="accordion-collapse collapse show"><div class="accordion-body">You can paste text, upload TXT/PDF files, or enter a news URL.</div></div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#faqTwo">Is the app secure?</button></h2>
+              <div id="faqTwo" class="accordion-collapse collapse"><div class="accordion-body">Yes. Inputs are validated, uploaded files are limited to 10MB, and content is cleaned before rendering.</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="historySection" class="mt-5 glass-card">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3 class="h4 mb-0">Recent History</h3>
+            <input id="historySearch" class="form-control w-auto" placeholder="Search history" />
+          </div>
+          <div id="historyList" class="history-list"></div>
+        </section>
+      </main>
+
+      <footer id="contact" class="footer mt-5">
+        <div class="container py-4 text-center">
+          <p class="mb-0">Built with Flask, Bootstrap, and AI-powered summarization.</p>
+        </div>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
