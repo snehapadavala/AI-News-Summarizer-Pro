@@ -1,6 +1,0 @@
-hii 
-hello
-welcome
-this is datavally class
-
- python fullstack
